@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import { MovieData } from "@/lib/movie-data";
 import type { Metadata } from "next";
 import { Navbar } from "@/components/shared/navbar";
+import { PagesTopLoader } from "nextjs-toploader/pages";
 
 export const metadata: Metadata = MovieData({
   title: "CineFinder",
@@ -21,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div
       className={`${poppins.variable} h-screen w-screen flex items-center justify-center overflow-auto`}
     >
+      <PagesTopLoader color="#A35C7A" />
       <div className="max-w-6xl h-full w-full">
         <header>
           <Navbar />
