@@ -22,12 +22,12 @@ export default function Landing() {
   return (
     <>
       <Head>
-        <title>CineFinder - Find Your Favorite Movies</title>
+        <title>CineCompass - Find Your Favorite Movies</title>
         <meta name="description" content="A simple movie searching app" />
       </Head>
       <main className="min-h-screen flex flex-col items-center space-y-12 py-14">
         <div className="space-y-5 text-center py-5">
-          <h1 className="text-6xl font-semibold">CineFinder</h1>
+          <h1 className="text-6xl font-semibold">CineCompass</h1>
           <p className="text-2xl">
             Discover your next favorite film in a flash.
           </p>
