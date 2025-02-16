@@ -1,5 +1,6 @@
-import Head from "next/head";
+import Link from "next/link";
 import FeatureCard from "@/components/landing/feature-card";
+import { Header } from "@/components/shared/header";
 import { Feature } from "@/types/feature";
 import { MoveRight } from "lucide-react";
 
@@ -21,10 +22,7 @@ const FEATURES: Feature[] = [
 export default function Landing() {
   return (
     <>
-      <Head>
-        <title>CineCompass - Find Your Favorite Movies</title>
-        <meta name="description" content="A simple movie searching app" />
-      </Head>
+      <Header title="CineCompass - Find Your Favorite Movies" />
       <main className="min-h-screen flex flex-col items-center space-y-12 py-14">
         <div className="space-y-5 text-center py-5">
           <h1 className="text-6xl font-semibold">CineCompass</h1>
@@ -37,10 +35,12 @@ export default function Landing() {
             <FeatureCard key={index} title={title} description={description} />
           ))}
         </div>
-        <button className="bg-zinc-800 flex py-4 px-10 rounded-lg items-center">
-          Start Exploring
-          <MoveRight className="ml-3" />
-        </button>
+        <Link href="/movies">
+          <button className="bg-zinc-800 flex py-4 px-10 rounded-lg items-center">
+            Start Exploring
+            <MoveRight className="ml-3" />
+          </button>
+        </Link>
         <p>Join thousands of movie enthusiasts finding their perfect watch!</p>
       </main>
     </>
