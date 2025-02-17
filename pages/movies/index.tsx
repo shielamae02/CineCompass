@@ -69,7 +69,7 @@ export default function Home({ movies: initialMovies }: HomeProps) {
     } else {
       setMovies(initialMovies);
 
-      const { search, ...restQuery } = router.query;
+      const restQuery = { ...router.query };
       router.push(
         {
           pathname: router.pathname,
