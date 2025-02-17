@@ -21,15 +21,15 @@ const MoviePreviewCard = ({
 
   return (
     <Link href={detailsLink} passHref>
-      <article className="bg-white text-black p-4 rounded-lg space-y-6 max-h-[770px]">
-        <div className="h-[600px] width-[500px] justify-center items-center flex bg-zinc-50 rounded-lg">
+      <article className="bg-white text-black p-4 rounded-lg w-full max-w-md mx-auto space-y-6">
+        <div className="max-h-[500px] h-[500px] overflow-hidden w-full justify-center items-center flex bg-zinc-50 rounded-lg">
           {poster_path ? (
             <Image
               src={`${API_URL}${poster_path}`}
-              width={500}
-              height={600}
+              width={1920}
+              height={1920}
               alt={`${movie.title} poster`}
-              className="rounded-lg"
+              className="rounded-lg object-cover w-full h-auto max-h-[500px]"
             />
           ) : (
             <div className="">No Image Available</div>
@@ -39,7 +39,7 @@ const MoviePreviewCard = ({
           <h3 className="text-lg font-semibold">{movie.title}</h3>
           <div className="space-y-0.5 text-sm">
             <div className="flex justify-between text-muted-foreground">
-              {date ? <p>{year}</p> : <p></p>}
+              {date ? <p>{year}</p> : "\u00A0"}
               {movie.vote_average && (
                 <p className="flex items-center">
                   <Star className="mr-1 size-4 text-yellow-400 fill-yellow-400" />
@@ -47,9 +47,9 @@ const MoviePreviewCard = ({
                 </p>
               )}
             </div>
-            {genres_display && (
-              <p className="text-muted-foreground">{genres_display}</p>
-            )}
+            <p className="text-muted-foreground">
+              {genres_display ? genres_display : "\u00A0"}
+            </p>
           </div>
         </div>
       </article>
