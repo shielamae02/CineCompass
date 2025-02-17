@@ -9,12 +9,14 @@ import { GetStaticProps } from "next";
 import { getMovieGenres } from "@/services/movies/getMovieGenres";
 import { MoviePreviewCard } from "@/components/home/movie-preview";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface HomeProps {
   movies: Movie[];
 }
 
 export default function Home({ movies: initialMovies }: HomeProps) {
+  const router = useRouter();
   const [movies, setMovies] = useState<Movie[]>(initialMovies);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
@@ -55,8 +57,27 @@ export default function Home({ movies: initialMovies }: HomeProps) {
 
       setMovies(movies);
       setLoading(false);
+
+      router.push(
+        {
+          pathname: router.pathname,
+          query: { ...router.query, search: query },
+        },
+        undefined,
+        { shallow: true }
+      );
     } else {
       setMovies(initialMovies);
+
+      const restQuery = { ...router.query };
+      router.push(
+        {
+          pathname: router.pathname,
+          query: restQuery,
+        },
+        undefined,
+        { shallow: true }
+      );
     }
   };
 
@@ -86,32 +107,14 @@ export default function Home({ movies: initialMovies }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const movieResponse = await getMovies({
-    include_adult: false,
-    include_video: false,
-    language: "en-US",
-    page: 1,
-    sort_by: "popularity.desc",
-  });
-
-  const genreResponse = await getMovieGenres({
-    language: "en-US",
-  });
-
-  const genreMap: Record<number, string> = (genreResponse.genres || []).reduce(
-    (acc: Record<number, string>, genre: Genre) => {
-      acc[genre.id] = genre.name;
-      return acc;
-    },
-    {}
-  );
-
-  const movies: Movie[] = (movieResponse || []).results.map((movie: Movie) => ({
-    ...movie,
-    genres: movie.genre_ids
-      ? movie.genre_ids.map((id) => genreMap[id]).filter(Boolean)
-      : [],
-  }));
+  const movies =
+    (await getMovies({
+      include_adult: false,
+      include_video: false,
+      language: "en-US",
+      page: 1,
+      sort_by: "popularity.desc",
+    })) || [];
 
   return {
     props: {

@@ -1,4 +1,7 @@
 import qs from "qs";
+import { Genre } from "@/types/genre";
+import { Movie } from "@/types/movie";
+import { getMovieGenres } from "./getMovieGenres";
 
 interface Props {
   include_adult: boolean;
@@ -27,14 +30,34 @@ export const getMovies = async (props: Props) => {
       }
     );
 
-    const response = await fetch(`${API_URL}/3/discover/movie?${queryParams}`);
-    const data = await response.json();
+    const movieResponse = await fetch(
+      `${API_URL}/3/discover/movie?${queryParams}`
+    );
+    const movieData = await movieResponse.json();
 
-    if (data.success === false) {
+    if (movieData.success === false) {
       throw new Error("Failed to fetch movies.");
     }
 
-    return data;
+    const genreResponse = await getMovieGenres({
+      language: "en-US",
+    });
+
+    const genreMap: Record<number, string> = (
+      genreResponse.genres || []
+    ).reduce((acc: Record<number, string>, genre: Genre) => {
+      acc[genre.id] = genre.name;
+      return acc;
+    }, {});
+
+    const movies: Movie[] = (movieData || []).results.map((movie: Movie) => ({
+      ...movie,
+      genres: movie.genre_ids
+        ? movie.genre_ids.map((id) => genreMap[id]).filter(Boolean)
+        : [],
+    }));
+
+    return movies;
   } catch (error) {
     console.error("Error fetching movies: ", error);
     return null;
