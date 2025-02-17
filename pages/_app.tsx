@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta charSet="UTF-8" />
       </Head>
       <div
-        className={`${poppins.variable} h-screen w-screen flex items-center justify-center overflow-auto`}
+        className={`${poppins.variable} h-screen w-screen px-4  flex items-center justify-center overflow-auto`}
       >
         <PagesTopLoader color="#A35C7A" />
         <div className="max-w-4xl h-full w-full">

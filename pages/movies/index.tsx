@@ -70,7 +70,7 @@ export default function Home({ movies: initialMovies }: HomeProps) {
             <LoaderCircle className="animate-spin mr-2" /> Fetching movies
           </p>
         ) : (
-          <section className="w-full gap-8 grid grid-cols-2">
+          <section className="w-full gap-6 grid grid-cols-2">
             {(movies || []).map((movie) => (
               <MoviePreviewCard
                 key={movie.id}
