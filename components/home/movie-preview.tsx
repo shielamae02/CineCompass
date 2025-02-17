@@ -43,7 +43,7 @@ const MoviePreviewCard = ({
               {movie.vote_average && (
                 <p className="flex items-center">
                   <Star className="mr-1 size-4 text-yellow-400 fill-yellow-400" />
-                  {movie.vote_average}
+                  {movie.vote_average.toFixed(2)}
                 </p>
               )}
             </div>
