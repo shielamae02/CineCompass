@@ -21,15 +21,15 @@ const MoviePreviewCard = ({
 
   return (
     <Link href={detailsLink} passHref>
-      <article className="bg-white text-black p-4 rounded-lg space-y-6">
-        <div className="max-h-[400px] width-[500px] justify-center items-center flex bg-zinc-50 rounded-lg">
+      <article className="bg-white text-black p-4 rounded-lg w-full max-w-md mx-auto space-y-6">
+        <div className="max-h-[500px] h-[500px] overflow-hidden w-full justify-center items-center flex bg-zinc-50 rounded-lg">
           {poster_path ? (
             <Image
               src={`${API_URL}${poster_path}`}
-              width={500}
-              height={600}
+              width={1920}
+              height={1920}
               alt={`${movie.title} poster`}
-              className="rounded-lg"
+              className="rounded-lg object-cover w-full h-auto max-h-[500px]"
             />
           ) : (
             <div className="">No Image Available</div>
