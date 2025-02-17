@@ -39,7 +39,7 @@ const MoviePreviewCard = ({
           <h3 className="text-lg font-semibold">{movie.title}</h3>
           <div className="space-y-0.5 text-sm">
             <div className="flex justify-between text-muted-foreground">
-              {date ? <p>{year}</p> : <p></p>}
+              {date ? <p>{year}</p> : "\u00A0"}
               {movie.vote_average && (
                 <p className="flex items-center">
                   <Star className="mr-1 size-4 text-yellow-400 fill-yellow-400" />
@@ -47,9 +47,9 @@ const MoviePreviewCard = ({
                 </p>
               )}
             </div>
-            {genres_display && (
-              <p className="text-muted-foreground">{genres_display}</p>
-            )}
+            <p className="text-muted-foreground">
+              {genres_display ? genres_display : "\u00A0"}
+            </p>
           </div>
         </div>
       </article>
